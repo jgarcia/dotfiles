@@ -1,0 +1,24 @@
+#!/bin/bash
+
+tmux new-session -d -s rails-ide
+
+# Set default panes
+tmux split-window -v
+
+# Run default commands
+tmux send-keys -t 0 "vi" C-m
+
+if [ -f config.ru ]
+then
+  # Setup rails server pane
+  tmux split-window -v
+  tmux send-keys -t 2 "bundle exec rails server" C-m
+fi
+
+# Set layout
+tmux select-layout main-horizontal
+tmux resize-pane -D 25
+tmux select-pane -t 0
+
+#tmux select-window -t rails-ide:1
+tmux -2 attach-session -t rails-ide
