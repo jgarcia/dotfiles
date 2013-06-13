@@ -1,6 +1,9 @@
 #!/bin/bash
 
-tmux new-session -d -s rails-ide
+if [ ! "$1" == "in-session" ]
+then
+  tmux new-session -d -s rails-ide
+fi
 
 # Set default panes
 tmux split-window -v
@@ -20,5 +23,8 @@ tmux select-layout main-horizontal
 tmux resize-pane -D 25
 tmux select-pane -t 0
 
-#tmux select-window -t rails-ide:1
-tmux -2 attach-session -t rails-ide
+if [ ! "$1" == "in-session" ]
+then
+  #tmux select-window -t rails-ide:1
+  tmux -2 attach-session -t rails-ide
+fi
