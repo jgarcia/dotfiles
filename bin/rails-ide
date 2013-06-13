@@ -17,12 +17,12 @@ then
   if [ "$1" == "with-zeus" ]
   then
     tmux split-window -v
-    tmux send-keys -t 2 "zeus start" C-m
+    tmux send-keys -t 2 "sleep 10 && zeus server" C-m
     tmux split-window -v
-    tmux send-keys -t 3 "zeus server" C-m
+    tmux send-keys -t 3 "zeus start" C-m
   else
     tmux split-window -v
-    tmux send-keys -t 3 "bundle exec rails server" C-m
+    tmux send-keys -t 2 "bundle exec rails server" C-m
   fi
 fi
 
