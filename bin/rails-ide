@@ -14,8 +14,16 @@ tmux send-keys -t 0 "vi" C-m
 if [ -f config.ru ]
 then
   # Setup rails server pane
-  tmux split-window -v
-  tmux send-keys -t 2 "bundle exec rails server" C-m
+  if [ "$1" == "with-zeus" ]
+  then
+    tmux split-window -v
+    tmux send-keys -t 2 "zeus start" C-m
+    tmux split-window -v
+    tmux send-keys -t 3 "zeus server" C-m
+  else
+    tmux split-window -v
+    tmux send-keys -t 3 "bundle exec rails server" C-m
+  fi
 fi
 
 # Set layout
