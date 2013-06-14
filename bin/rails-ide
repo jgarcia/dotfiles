@@ -14,7 +14,7 @@ tmux send-keys -t 0 "vi" C-m
 if [ -f config.ru ]
 then
   # Setup rails server pane
-  if [ "$1" == "with-zeus" ]
+  if [ "$1" == "--zeus" ]
   then
     tmux split-window -v
     tmux send-keys -t 2 "sleep 10 && zeus server" C-m
