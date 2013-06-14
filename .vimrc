@@ -18,7 +18,7 @@ set showmode
 
 set backspace=indent,eol,start
 
-set complete-=i
+set complete=.,t
 
 set showmatch
 set smarttab
