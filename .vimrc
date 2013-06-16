@@ -62,7 +62,6 @@ set laststatus=2
 
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{fugitive#statusline()}%{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 
-
 set t_Co=256
 color vividchalk
 
@@ -75,6 +74,20 @@ map <leader>nt :NERDTreeToggle<cr>
 map <leader>nh :nohls<cr>
 map <leader>tb :TagbarToggle<cr>
 map <leader>pc :VimuxPromptCommand<cr>
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+set splitbelow
+set splitright
+
+let g:UltiSnips = {}
+
+let g:UltiSnips.snipmate_ft_filter = {
+            \ 'default' : {'filetypes': ["FILETYPE"] },
+            \ 'ruby'    : {'filetypes': ["ruby", "ruby-rails", "ruby-1.9"] },}
 
 autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal foldmethod=syntax shiftwidth=2 tabstop=2
