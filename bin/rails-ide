@@ -1,38 +1,49 @@
 #!/bin/bash
 
-if [ ! "$1" == "in-session" ]
-then
+TMUX_SESSIONS=$(tmux list-sessions)
+SETUP_LAYOUT=true
+ATTACH=true
+
+if echo $TMUX_SESSIONS | grep -q 'rails-ide'; then
+  if [ "$TMUX" != "" ]; then
+    # If inside tmux do not attach
+    ATTACH=false
+  else
+    tmux attach -t rails-ide
+    SETUP_LAYOUT=false
+  fi
+else
   tmux new-session -d -s rails-ide
 fi
 
-# Set default panes
-tmux split-window -v
+if $SETUP_LAYOUT == true; then
+  # Set default panes
+  tmux split-window -v
 
-# Run default commands
-tmux send-keys -t 0 "vi" C-m
+  # Run default commands
+  tmux send-keys -t 0 "vi" C-m
 
-if [ -f config.ru ]
-then
-  # Setup rails server pane
-  if [ "$1" == "--zeus" ]
+  if [ -f config.ru ]
   then
-    tmux split-window -v
-    tmux send-keys -t 2 "sleep 10 && zeus server" C-m
-    tmux split-window -v
-    tmux send-keys -t 3 "zeus start" C-m
-  else
-    tmux split-window -v
-    tmux send-keys -t 2 "bundle exec rails server" C-m
+    # Setup rails server pane
+    if [ "$1" == "--zeus" ]
+    then
+      tmux split-window -v
+      tmux send-keys -t 2 "sleep 10 && zeus server" C-m
+      tmux split-window -v
+      tmux send-keys -t 3 "zeus start" C-m
+    else
+      tmux split-window -v
+      tmux send-keys -t 2 "bundle exec rails server" C-m
+    fi
   fi
+
+  # Set layout
+  tmux select-layout main-horizontal
+  tmux resize-pane -D 25
+  tmux select-pane -t 0
 fi
 
-# Set layout
-tmux select-layout main-horizontal
-tmux resize-pane -D 25
-tmux select-pane -t 0
-
-if [ ! "$1" == "in-session" ]
-then
-  #tmux select-window -t rails-ide:1
+if $ATTACH == true; then
   tmux -2 attach-session -t rails-ide
 fi
