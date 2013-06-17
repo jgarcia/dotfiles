@@ -21,7 +21,7 @@ if $SETUP_LAYOUT == true; then
   tmux split-window -v
 
   # Run default commands
-  tmux send-keys -t 0 "vi" C-m
+  tmux send-keys -t 0 "vim" C-m
 
   if [ -f config.ru ]
   then
