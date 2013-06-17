@@ -91,5 +91,9 @@ let g:UltiSnips.snipmate_ft_filter = {
             \ 'default' : {'filetypes': ["FILETYPE"] },
             \ 'ruby'    : {'filetypes': ["ruby", "ruby-rails", "ruby-1.9"] },}
 
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': [],
+                     \ 'passive_filetypes': ['html', 'eruby'] }
+
 autocmd FileType css  setlocal foldmethod=indent shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal foldmethod=syntax shiftwidth=2 tabstop=2
